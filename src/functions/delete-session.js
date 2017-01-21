@@ -3,9 +3,9 @@
 const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-module.exports = (event, callback) => {
+module.exports.handler = (event, context, callback) => {
   const params = {
-    TableName : 'tt-sessions',
+    TableName: process.env.SESSIONS_TABLE_NAME,
     Key: {
       id: event.pathParameters.id
     }

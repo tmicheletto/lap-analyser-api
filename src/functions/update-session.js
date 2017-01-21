@@ -2,16 +2,15 @@
 
 const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const uuid = require('uuid');
 
-module.exports = (event, callback) => {
+module.exports.handler = (event, context, callback) => {
   const data = JSON.parse(event.body);
 
-  data.id = uuid.v1();
-  data.updatedAt = new Date().getTime();
+  data.id = event.pathParameters.id;
+  data.updatedAt = new Date().toISOString();
 
   const params = {
-    TableName: 'tt-sessions',
+    TableName: process.env.SESSIONS_TABLE_NAME,
     Item: data
   };
 
