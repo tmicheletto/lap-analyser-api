@@ -20,12 +20,13 @@ module.exports.handler = (event, context, callback) => {
         Key: ddbData.Item.id + ".json"
       }
       return s3.getObject(s3Params).promise().then((s3Data) => {
-        const resource = ddBdata.Item;
-        resource.geoData = s3Data;
+        const resource = ddbData.Item;
+        const json = JSON.parse(new Buffer(s3Data.Body).toString("utf8"));
+        resource.geoData = json;
         return resource;
       });
     })
-    .then((data) => {
+    .then((resource) => {
       responder.respond(callback, 200, null, resource);
     })
     .catch((error) => {

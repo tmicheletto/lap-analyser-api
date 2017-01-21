@@ -1,6 +1,6 @@
 {
   "name": "tracktime-api",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Serverless CRUD service",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -8,7 +8,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.6.7",
-    "uuid": "^2.0.3"
+    "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.7.27"
   }
 }

@@ -34,6 +34,7 @@ const buildResponse = (statusCode, headers, body) => {
 
 const buildError = (statusCode, message, details) => {
   const body = {
+    headers: { 'Access-Control-Allow-Origin': '*' }, // Required for CORS support to work
     error: {
       message: message
     }

@@ -31,13 +31,9 @@ provider:
             - Ref: SessionsDynamoDbTable
     - Effect: "Allow"
       Action:
-        - 's3:ListBucket'
-        - 's3:PutObject'
+        - '*'
       Resource:
-        Fn::Join:
-          - ''
-          - - 'arn:aws:s3:::'
-            - Ref: SessionsDataS3Bucket
+        - 'arn:aws:s3:::${self:custom.sessionsBucketName}/*'
 custom:
   sessionsTableName: ${self:service}-sessions-${opt:stage}
   sessionsBucketName: ${self:service}-session-data-${opt:stage}
