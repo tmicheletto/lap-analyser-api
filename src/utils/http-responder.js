@@ -2,7 +2,7 @@
 
 let currentEnv = '';
 
-if(typeof process.env.STAGE !== "undefined"){
+if (typeof process.env.STAGE !== "undefined") {
   currentEnv = process.env.STAGE;
 } else {
   currentEnv = "dev";
@@ -15,12 +15,13 @@ const getEnv = () => {
 
 const defaultHeaders = () => {
   return {
-      'content-type': 'application/json'
+    'content-type': 'application/json',
+    'Access-Control-Allow-Origin': '*' // Required for CORS support to work
   }
 };
 
 const buildResponse = (statusCode, headers, body) => {
-  if(body && typeof body === 'object'){
+  if (body && typeof body === 'object') {
     body = JSON.stringify(body);
   }
 
@@ -38,7 +39,7 @@ const buildError = (statusCode, message, details) => {
     }
   }
 
-  if(currentEnv == 'dev'){
+  if (currentEnv == 'dev') {
     body.error.details = details;
   }
 
@@ -46,14 +47,14 @@ const buildError = (statusCode, message, details) => {
 };
 
 const respond = (callback, statusCode, headers, body) => {
-  if(currentEnv == 'dev'){
+  if (currentEnv == 'dev') {
     console.log('DEBUG: calling responseUtils.respond function with', statusCode, headers, body);
   }
   callback(null, buildResponse(statusCode, headers, body));
 };
 
 const error = (callback, statusCode, message, details) => {
-  if(currentEnv = 'dev'){
+  if (currentEnv = 'dev') {
     console.log('DEBUG: calling responseUtils.error function with', statusCode, message, details);
   }
   callback(buildError(statusCode, message, details));
